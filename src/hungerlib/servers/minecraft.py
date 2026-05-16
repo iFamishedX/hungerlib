@@ -20,23 +20,10 @@ class MinecraftServer(GenericServer):
         bridge_token,
         tpsCommand='tt20 tps',
     ):
-        mc_map = (
-            mc_color_map.as_dict()
-            if hasattr(mc_color_map, "as_dict")
-            else mc_color_map
-        )
-        ascii_map = (
-            ascii_color_map.as_dict()
-            if hasattr(ascii_color_map, "as_dict")
-            else ascii_color_map
-        )
-
         super().__init__(
             name,
             panel,
             server_id,
-            mc_color_map=mc_map,
-            ascii_color_map=ascii_map
         )
 
         # Minecraft-specific fields

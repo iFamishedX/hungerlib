@@ -1,7 +1,5 @@
 # Universal server class
 from hungerlib.panel import Panel
-from hungerlib.utils.colormaps import MC_COLOR_MAP, ASCII_COLOR_MAP
-
 
 class GenericServer:
     def __init__(
@@ -9,34 +7,12 @@ class GenericServer:
         name,
         panel,
         server_id,
-        mc_color_map=MC_COLOR_MAP,
-        ascii_color_map=ASCII_COLOR_MAP
     ):
         self.name = name
         self.panel = panel
         self.server_id = server_id
 
-        # Normalize maps
-        self.mc_color_map = (
-            mc_color_map.as_dict()
-            if hasattr(mc_color_map, "as_dict")
-            else mc_color_map
-        )
-
-        self.ascii_color_map = (
-            ascii_color_map.as_dict()
-            if hasattr(ascii_color_map, "as_dict")
-            else ascii_color_map
-        )
-
         self._cached_resources = None
-
-
-    # internal helpers
-    def _translate_mc_colors(self, msg):
-        for tag, code in self.mc_color_map.items():
-            msg = msg.replace(tag, code)
-        return msg
 
     # resource and status
     def refresh(self):
