@@ -39,8 +39,8 @@ class BridgeClient:
         if not normalize:
             return data
 
-        # Normalization
-        # 1. If dict with error/success, treat as None
+        # --- Normalization rules ---
+        # 1. If dict with error/success → treat as None
         if isinstance(data, dict):
             if "error" in data or "success" in data:
                 return None
@@ -48,11 +48,15 @@ class BridgeClient:
                 return data["output"]
             return None
 
-        # 2. If already a string, return it
+        # 2. If list → join into a single string
+        if isinstance(data, list):
+            return "\n".join(str(x) for x in data)
+
+        # 3. If already a string or bytes → return it
         if isinstance(data, (str, bytes)):
             return data
 
-        # 3. Anything else: None
+        # 4. Anything else → None
         return None
 
     def log(self, message, level="info"):
