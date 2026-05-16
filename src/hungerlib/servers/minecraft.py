@@ -74,7 +74,6 @@ class MinecraftServer(GenericServer):
     )
 
     def sendBroadcast(self, message):
-        translated = mapit(message, MC_COLOR_MAP)
-        safe = translated.replace('"', '\\"')
+        safe = message.replace('"', '\\"')
         cmd = f'tellraw @a {{"text":"{safe}"}}'
         return self.bridge.runCommand(cmd, show_console=True)
