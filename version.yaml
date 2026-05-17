@@ -1,4 +1,4 @@
 run: true
-version: "3.7.1"
+version: "3.7.2"
 description: |
-  - Added http:// prefix to bridge config
+  - Added color mapping to log prefixes

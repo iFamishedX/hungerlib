@@ -69,9 +69,9 @@ class MessageRouter:
         # format
         maps = self._merge_maps(override_maps or self.origin_maps, extra_maps)
         mapped = self._format(template, maps, **ctx)
-        if level == "info":    prefix = self.info_prefix
-        elif level == "warn":  prefix = self.warn_prefix
-        elif level == "error": prefix = self.error_prefix
+        if level == "info":    prefix = mapit(self.info_prefix, [ASCII_COLOR_MAP])
+        elif level == "warn":  prefix = mapit(self.warn_prefix, [ASCII_COLOR_MAP])
+        elif level == "error": prefix = mapit(self.error_prefix, [ASCII_COLOR_MAP])
         else:                  prefix = ""
         msg = prefix + mapped
 
