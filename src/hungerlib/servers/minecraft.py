@@ -32,7 +32,7 @@ class MinecraftServer(GenericServer):
         self.tpsCommand = tpsCommand
 
         # HungerBridge client
-        bridge_url = f"{server_domain}:{bridge_port}"
+        bridge_url = f"http://{server_domain}:{bridge_port}"
         self.bridge = BridgeClient(bridge_url, bridge_token)
 
 

@@ -1,6 +1,4 @@
 run: true
-version: "3.7"
+version: "3.7.1"
 description: |
-  - Full MessageRouter rewrite
-  - Added STRIP_COLOR_MAP
-  - Changed bridge definition structure in MinecraftServer
+  - Added http:// prefix to bridge config
