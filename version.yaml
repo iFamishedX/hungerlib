@@ -1,4 +1,4 @@
 run: true
-version: "3.7.2"
+version: "3.7.3"
 description: |
-  - Added color mapping to log prefixes
+  - Fixed default color in warn prefix

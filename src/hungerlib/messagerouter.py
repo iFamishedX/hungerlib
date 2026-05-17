@@ -17,7 +17,7 @@ class MessageRouter:
         file_maps:        list = [STRIP_COLOR_MAP],
 
         info_prefix:       str = "<white>[INFO]: ",
-        warn_prefix:       str = "<orange>[WARN]: ",
+        warn_prefix:       str = "<yellow>[WARN]: ",
         error_prefix:      str = "<red>[ERROR]: ",
     ):
 
