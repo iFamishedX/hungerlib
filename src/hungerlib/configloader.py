@@ -39,7 +39,7 @@ def convert_value(value, annotation):
 
 
 # main loader
-def loadConfig(schema, runtime_path: str = "config/config.yaml"):
+def loadConfig(schema, runtime_path: str | None = None):
     '''
     Loads a config dataclass using:
     - schema.__config_path__ for default file
@@ -47,11 +47,14 @@ def loadConfig(schema, runtime_path: str = "config/config.yaml"):
     '''
 
     # 1. Resolve runtime path
+    if runtime_path is None:
+        runtime_path = getattr(schema, "__user_config_path__", "config/config.yaml")
+
     abs_runtime = os.path.abspath(runtime_path)
     os.makedirs(os.path.dirname(abs_runtime), exist_ok=True)
 
     # 2. Resolve default config path inside the package
-    default_rel = getattr(schema, "__config_path__", None)
+    default_rel = getattr(schema, "__default_config_path__", None)
     abs_default = None
 
     if default_rel:
@@ -77,7 +80,7 @@ def loadConfig(schema, runtime_path: str = "config/config.yaml"):
     mode = getattr(schema, "__mode__", None)
 
     for f in fields(schema):
-        if f.name in ("__syntax__", "__mode__", "__config_path__"):
+        if f.name.startswith("__"):
             continue
 
         default = f.default
