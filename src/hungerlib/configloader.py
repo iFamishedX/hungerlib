@@ -78,8 +78,9 @@ def loadConfig(schema, runtime_path: str | None = None):
     raw = load_yaml(abs_runtime)
     values = {}
 
-    # 5. Load fallback class if present
-    fallbacks = getattr(schema, "fallbacks", None)
+    # 5. Load fallback class from the same module
+    module = importlib.import_module(schema.__module__)
+    fallbacks = getattr(module, 'fallbacks', None)
 
     # 6. Map YAML → dataclass fields
     mode = getattr(schema, "__mode__", None)
