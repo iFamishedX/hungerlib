@@ -45,7 +45,7 @@ def loadConfig(schema, runtime_path: str | None = None):
     - schema.__user_config_path__ for runtime file
     - schema.__default_config_path__ for packaged default
     - dataclass defaults as YAML key paths (mode="config")
-    - tuple defaults: (yaml_path, fallback)
+    - fallback values from schema.fallbacks.<key>
     """
 
     # 1. Resolve runtime path
@@ -78,42 +78,37 @@ def loadConfig(schema, runtime_path: str | None = None):
     raw = load_yaml(abs_runtime)
     values = {}
 
-    # 5. Map YAML → dataclass fields
+    # 5. Load fallback class if present
+    fallbacks = getattr(schema, "fallbacks", None)
+
+    # 6. Map YAML → dataclass fields
     mode = getattr(schema, "__mode__", None)
 
     for f in fields(schema):
         if f.name.startswith("__"):
             continue
 
-        default = f.default
-
-        # tuple default: (yaml_path, fallback)
-        if isinstance(default, tuple) and len(default) == 2:
-            yaml_path, fallback = default
-            value = deep_get(raw, yaml_path)
-
-            resolved = convert_value(value if value is not None else fallback, f.type)
-
-            # wrap resolved value so we can attach .fallback
-            class _V(str):
-                pass
-
-            wrapped = _V(resolved)
-            wrapped.fallback = fallback
-
-            values[f.name] = wrapped
-            continue
+        yaml_path = f.default
+        yaml_value = None
 
         # mode="config": default string = YAML path
-        if mode == "config" and isinstance(default, str):
-            yaml_path = default
-            value = deep_get(raw, yaml_path)
-            if value is not None:
-                values[f.name] = convert_value(value, f.type)
-                continue
+        if mode == "config" and isinstance(yaml_path, str):
+            yaml_value = deep_get(raw, yaml_path)
 
-        # fallback to dataclass default
-        if default is not MISSING:
-            values[f.name] = convert_value(default, f.type)
+        if yaml_value is not None:
+            values[f.name] = convert_value(yaml_value, f.type)
+        else:
+            # fallback from fallback class
+            if fallbacks and hasattr(fallbacks, f.name):
+                values[f.name] = getattr(fallbacks, f.name)
+            else:
+                # no fallback → None
+                values[f.name] = None
 
-    return schema(**values)
+    # 7. Build config instance
+    config = schema(**values)
+
+    # 8. Attach fallback namespace
+    config.fallbacks = fallbacks
+
+    return config
