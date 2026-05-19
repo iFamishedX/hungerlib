@@ -19,15 +19,8 @@ class TimeMap:
     DD: str = None
     weekday: str = None
 
-    def __new__(cls, tz: str | None = None):
-        if tz is None:
-            obj = super().__new__(cls)
-            obj.TZ = cls._default_tz
-            return obj
-
-        obj = super().__new__(cls)
-        obj.TZ = ZoneInfo(tz)
-        return obj
+    def __init__(self, tz: str | None = None):
+        self.TZ = ZoneInfo(tz) if tz else self._default_tz
 
     @property
     def providers(self):
