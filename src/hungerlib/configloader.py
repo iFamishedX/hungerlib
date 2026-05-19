@@ -1,7 +1,7 @@
 import os
 import yaml
 import importlib
-from dataclasses import fields, MISSING
+from dataclasses import fields
 
 
 # yaml helpers
@@ -38,6 +38,19 @@ def convert_value(value, annotation):
     return value
 
 
+# raw namespace
+class RawNamespace:
+    """
+    Provides attribute-style access to raw YAML values.
+    Missing keys return None.
+    """
+    def __init__(self, raw_dict):
+        self.__dict__.update(raw_dict)
+
+    def __getattr__(self, name):
+        return None
+
+
 # main loader
 def loadConfig(schema, runtime_path: str | None = None):
     """
@@ -71,8 +84,7 @@ def loadConfig(schema, runtime_path: str | None = None):
             with open(abs_default, "r") as src, open(abs_runtime, "w") as dst:
                 dst.write(src.read())
         else:
-            # Create empty file — no placeholder
-            open(abs_runtime, "a").close()
+            open(abs_runtime, "a").close()  # create empty file
 
     # 4. Load YAML
     raw = load_yaml(abs_runtime)
@@ -103,7 +115,6 @@ def loadConfig(schema, runtime_path: str | None = None):
             if fallbacks and hasattr(fallbacks, f.name):
                 values[f.name] = getattr(fallbacks, f.name)
             else:
-                # no fallback → None
                 values[f.name] = None
 
     # 7. Build config instance
@@ -111,5 +122,8 @@ def loadConfig(schema, runtime_path: str | None = None):
 
     # 8. Attach fallback namespace
     config.fallbacks = fallbacks
+
+    # 9. Attach raw YAML namespace
+    config.raw = RawNamespace(raw)
 
     return config
