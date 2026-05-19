@@ -10,10 +10,15 @@ class TimeMap:
 
     # dynamic fields
     hh: str = None
+    h: str = None
+    h12: str = None
+    hh12: str = None
+    ampm: str = None
     mm: str = None
+    m: str = None
     ss: str = None
+    s: str = None
     ms: str = None
-
     YYYY: str = None
     MM: str = None
     DD: str = None
