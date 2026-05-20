@@ -1,4 +1,4 @@
 run: true
-version: "4.8"
+version: "4.8.1"
 description: |
-  - Removed mapit in favor of mapres
+  - Added mapres as a dependency
