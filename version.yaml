@@ -1,5 +1,4 @@
 run: true
-version: "4.10"
+version: "4.11"
 description: |
-  - Added error handling
-  - Updated "None" log level
+  - Added support for HungerBridge v2.0
