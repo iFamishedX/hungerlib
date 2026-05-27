@@ -4,3 +4,4 @@ class InvalidLevelError(HungerLibError): pass
 
 # HungerBridge exceptions
 class HungerBridgeError(Exception): pass
+class InvalidModeError(HungerBridgeError): pass
