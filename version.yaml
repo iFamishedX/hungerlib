@@ -1,6 +1,5 @@
 run: true
-version: "4.15"
+version: "4.16"
 description: |
-  - Fully rewrote BridgeClient
-  - Changed exceptions
-  - Updated MinecraftServer
+  - Updated validator
+  - Added exceptions

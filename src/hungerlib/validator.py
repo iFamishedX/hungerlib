@@ -1,6 +1,4 @@
-class ValidationError(Exception):
-    """Raised when validation fails fatally."""
-    pass
+from .utils.exceptions import ValidationError
 
 
 class Validator:
@@ -82,8 +80,13 @@ class Validator:
         for cfg in configs:
             self.validate_schema(cfg)
 
-        if self.errors or self.defaults:
-            raise ValidationError(self.format_report())
+        # fatal errors first
+        if self.errors:
+            raise FatalValidationError(self.format_report())
+
+        # defaults but no errors
+        if self.defaults:
+            raise ValidationFallbacks(self.format_report())
 
         return self.format_report()
 
