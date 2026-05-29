@@ -1,4 +1,6 @@
 run: true
-version: "4.18.1"
+version: "4.19"
 description: |
-  - Fixed init
+  - Updated Validator
+    - Better error throwing
+    - Improved logic

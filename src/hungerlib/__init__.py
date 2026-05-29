@@ -13,7 +13,15 @@ from .messagerouter import MessageRouter
 from .panel import Panel
 from .servers import GenericServer, MinecraftServer
 from .bridgeclient import BridgeClient
-from .validator import Validator
+from .validator import (
+    Validator,
+    ValidationError,
+    FatalError,
+    TypeMismatchError,
+    FallbackError,
+    RecommendedError,
+)
+
 from .utils import (
     snapSchedule,
     runCountdownEvents,
@@ -69,6 +77,13 @@ __all__ = [
     'Snapshot',
     'clearTerminal',
     'validateAll',
+
+    # errors
+    'ValidationError',
+    'FatalError',
+    'TypeMismatchError',
+    'FallbackError',
+    'RecommendedError',
 
     # namespaces
     'utils',
