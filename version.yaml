@@ -1,4 +1,4 @@
 run: true
-version: "4.19.3"
+version: "4.19.4"
 description: |
-  - Fixed runCountdownEvents timer
+  - Temporarily reverted runCountdownEvents timer fix
