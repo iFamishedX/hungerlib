@@ -17,10 +17,10 @@ def snapSchedule(minimumMinutes: int = 30, snapMinutes: tuple[int, int] = (0, 30
                      + timedelta(hours=1))
 
     return {
-        "now": now,
-        "minimum": minimum,
-        "scheduled": scheduled,
-        "formatted": scheduled.strftime("%I:%M %p")
+        'now': now,
+        'minimum': minimum,
+        'scheduled': scheduled,
+        'formatted': scheduled.strftime('%I:%M %p')
     }
 
 def runCountdownEvents(
@@ -60,7 +60,7 @@ def runCountdownEvents(
 
         time.sleep(tick_interval)
 
-def waitForOnline(server: "Server", timeout: int = 60, interval: int = 2) -> bool:
+def waitForOnline(server: 'Server', timeout: int = 60, interval: int = 2) -> bool:
     '''Pauses script until the server is back online'''
     elapsed = 0
     while elapsed < timeout:
@@ -70,7 +70,7 @@ def waitForOnline(server: "Server", timeout: int = 60, interval: int = 2) -> boo
         elapsed += interval
     return False
 
-def waitForOffline(server: "Server", timeout: int = 60, interval: int = 2) -> bool:
+def waitForOffline(server: 'Server', timeout: int = 60, interval: int = 2) -> bool:
     '''Pauses script until the server is fully offline'''
     elapsed = 0
     while elapsed < timeout:

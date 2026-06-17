@@ -5,6 +5,6 @@ class CommandAPI:
 
     def send(self, server_id, command):
         return self.panel.post(
-            f"/api/client/servers/{server_id}/command",
-            json={"command": command}
+            f'/api/client/servers/{server_id}/command',
+            json={'command': command}
         )

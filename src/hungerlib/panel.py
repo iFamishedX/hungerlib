@@ -5,10 +5,10 @@ from hungerlib.api import CommandAPI, ScheduleAPI, FileManagerAPI, BackupsAPI, D
 
 
 class Panel:
-    """High-level panel object"""
+    '''High-level panel object'''
     def __init__(self, name: str, url: str, api_key: str):
         self.name = name
-        self.url = url.rstrip("/")
+        self.url = url.rstrip('/')
         self.api_key = api_key
 
         # API modules
@@ -21,30 +21,30 @@ class Panel:
 
 
     def __str__(self):
-        return f"Panel name: {self.name}\nURL: {self.url}\nAPI key: {self.api_key}"
+        return f'Panel name: {self.name}\nURL: {self.url}\nAPI key: {self.api_key}'
 
     # http core
     @property
     def headers(self):
         return {
-            "Authorization": f"Bearer {self.api_key}",
-            "Accept": "application/json",
-            "Content-Type": "application/json",
+            'Authorization': f'Bearer {self.api_key}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         }
     def get(self, path, timeout=5):
-        return requests.get(f"{self.url}{path}", headers=self.headers, timeout=timeout)
+        return requests.get(f'{self.url}{path}', headers=self.headers, timeout=timeout)
     def post(self, path, json=None, timeout=5):
-        return requests.post(f"{self.url}{path}", headers=self.headers, json=json, timeout=timeout)
+        return requests.post(f'{self.url}{path}', headers=self.headers, json=json, timeout=timeout)
     def delete(self, path, timeout=5):
-        return requests.delete(f"{self.url}{path}", headers=self.headers, timeout=timeout)
+        return requests.delete(f'{self.url}{path}', headers=self.headers, timeout=timeout)
     def patch(self, path, json=None, timeout=5):
-        return requests.patch(f"{self.url}{path}", headers=self.headers, json=json, timeout=timeout)
+        return requests.patch(f'{self.url}{path}', headers=self.headers, json=json, timeout=timeout)
 
     # Special-case raw upload (multipart)
     def _raw_upload(self, url, file_data):
         return requests.post(
-            f"{self.url}{url}",
-            headers={"Authorization": f"Bearer {self.api_key}"},
+            f'{self.url}{url}',
+            headers={'Authorization': f'Bearer {self.api_key}'},
             files=file_data
         )
 
@@ -52,10 +52,10 @@ class Panel:
     # panel health
     def ping(self) -> bool:
         try:
-            r = self.get("/api/client")
+            r = self.get('/api/client')
             return r.status_code == 200
         except:
             return False
     def validateAPI(self) -> bool:
-        r = self.get("/api/client/account")
+        r = self.get('/api/client/account')
         return r.status_code == 200

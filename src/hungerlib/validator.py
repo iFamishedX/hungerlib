@@ -19,11 +19,11 @@ class Validator:
     def __init__(
         self,
 
-        msg_missing_required="{field}: missing required key",
-        msg_missing_recommended="{field}: key missing, using fallback {fallback}",
-        msg_fallback_required="{field}: must not use fallback (got {value})",
-        msg_fallback_recommended="{field}: using fallback {value}",
-        msg_type_mismatch="{schema}.{field}: expected {expected}, got {actual} ({value!r})",
+        msg_missing_required='{field}: missing required key',
+        msg_missing_recommended='{field}: key missing, using fallback {fallback}',
+        msg_fallback_required='{field}: must not use fallback (got {value})',
+        msg_fallback_recommended='{field}: using fallback {value}',
+        msg_type_mismatch='{schema}.{field}: expected {expected}, got {actual} ({value!r})',
     ):
         # collected results
         self.errors = []
@@ -41,7 +41,7 @@ class Validator:
     # type checking
     def validate_key_types(self, obj, schema):
         for f in fields(schema):
-            if f.name.startswith("__"):
+            if f.name.startswith('__'):
                 continue
 
             expected = f.type
@@ -55,7 +55,7 @@ class Validator:
                     msg = self.msg_type_mismatch.format(
                         schema=schema.__name__,
                         field=f.name,
-                        expected=getattr(expected, "__name__", str(expected)),
+                        expected=getattr(expected, '__name__', str(expected)),
                         actual=type(value).__name__,
                         value=value,
                     )
@@ -65,15 +65,15 @@ class Validator:
 
     # rule lookup
     def _rule(self, obj, name):
-        rules = getattr(obj.__class__, "rules", None)
+        rules = getattr(obj.__class__, 'rules', None)
         if rules is None:
-            return "optional"
-        return getattr(rules, name, "optional")
+            return 'optional'
+        return getattr(rules, name, 'optional')
 
     # field checking
     def check_field(self, obj, name):
-        raw = getattr(obj, "raw", None)
-        fb = getattr(obj, "fallbacks", None)
+        raw = getattr(obj, 'raw', None)
+        fb = getattr(obj, 'fallbacks', None)
         if raw is None or fb is None:
             return
 
@@ -84,17 +84,17 @@ class Validator:
 
         # missing yaml key
         if raw_val is None:
-            if level == "required":
+            if level == 'required':
                 self.errors.append(self.msg_missing_required.format(field=name))
-            elif level == "recommended":
+            elif level == 'recommended':
                 self.recommended.append(self.msg_missing_recommended.format(field=name, fallback=fb_val))
             return
 
         # fallback usage
         if fb_val is not None and val == fb_val:
-            if level == "required":
+            if level == 'required':
                 self.errors.append(self.msg_fallback_required.format(field=name, value=val))
-            elif level == "recommended":
+            elif level == 'recommended':
                 self.fallbacks.append(self.msg_fallback_recommended.format(field=name, value=val))
 
     # subclass hook
@@ -113,7 +113,7 @@ class Validator:
             raise FatalError(report, self.errors, self.warnings, self.fallbacks, self.recommended)
 
         # type mismatch
-        if any("expected" in e for e in self.errors):
+        if any('expected' in e for e in self.errors):
             raise TypeMismatchError(report, self.errors, self.warnings, self.fallbacks, self.recommended)
 
         # fallback used
@@ -131,26 +131,26 @@ class Validator:
         out = []
 
         if self.errors:
-            out.append("errors:")
+            out.append('errors:')
             for e in self.errors:
-                out.append(f" - {e}")
+                out.append(f' - {e}')
 
         if self.recommended:
-            out.append("recommended:")
+            out.append('recommended:')
             for r in self.recommended:
-                out.append(f" - {r}")
+                out.append(f' - {r}')
 
         if self.fallbacks:
-            out.append("fallbacks:")
+            out.append('fallbacks:')
             for f in self.fallbacks:
-                out.append(f" - {f}")
+                out.append(f' - {f}')
 
         if self.warnings:
-            out.append("warnings:")
+            out.append('warnings:')
             for w in self.warnings:
-                out.append(f" - {w}")
+                out.append(f' - {w}')
 
         if not out:
-            return "all configs valid"
+            return 'all configs valid'
 
-        return "\n".join(out)
+        return '\n'.join(out)

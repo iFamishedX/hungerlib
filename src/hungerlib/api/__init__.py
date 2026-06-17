@@ -6,10 +6,10 @@ from .startup import StartupAPI
 from .command import CommandAPI
 
 __all__ = [
-    "ScheduleAPI",
-    "FileManagerAPI",
-    "BackupsAPI",
-    "DatabasesAPI",
-    "StartupAPI",
-    "CommandAPI",
+    'ScheduleAPI',
+    'FileManagerAPI',
+    'BackupsAPI',
+    'DatabasesAPI',
+    'StartupAPI',
+    'CommandAPI',
 ]
