@@ -48,6 +48,33 @@ class MessageRouter:
         self.logger.setLevel(logging.DEBUG)
         self._init_file_logger()
 
+        # custom level registry
+        self.custom_levels = {}
+
+    def registerLevel(self, name, prefix, file_method=None, routes=None):
+        lvl = name.lower()
+        self.custom_levels[lvl] = {
+            'prefix': prefix,
+            'file_method': file_method,
+            'routes': routes or ['origin', 'filelog']
+        }
+
+        def make_method(level_name):
+            def _method(text, **ctx):
+                cfg = self.custom_levels[level_name]
+                rts = cfg['routes']
+                if 'origin' in rts:
+                    self.origin(text, level=level_name, **ctx)
+                if 'destination' in rts:
+                    self.destination(text, level=level_name, **ctx)
+                if 'broadcast' in rts:
+                    self.broadcast(text, level=level_name, **ctx)
+                if 'filelog' in rts:
+                    self.filelog(text, level=level_name, **ctx)
+            return _method
+
+        setattr(self, lvl, make_method(lvl))
+
     def _init_file_logger(self):
         log_file = self.log_path / f'{self.name}_{datetime.now().strftime("%Y-%m-%d")}.log'
         if not self.logger.handlers:
@@ -82,6 +109,8 @@ class MessageRouter:
             prefix = self.res(self.warn_prefix, override_maps=self.prefix_maps)
         elif level_norm == 'error':
             prefix = self.res(self.error_prefix, override_maps=self.prefix_maps)
+        elif level_norm in self.custom_levels:
+            prefix = self.res(self.custom_levels[level_norm]['prefix'], override_maps=self.prefix_maps)
         elif level is None:
             prefix = ''
         elif level_norm == 'custom':
@@ -114,6 +143,13 @@ class MessageRouter:
     def filelog(self, text, level='info', extra_maps=None, override_maps=None, **ctx):
         maps = self._merge_maps(override_maps or self.file_maps, extra_maps)
         msg = self._format(text, maps, **ctx)
+
+        # custom file logging
+        if level in self.custom_levels:
+            method = self.custom_levels[level]['file_method']
+            if method:
+                getattr(self.logger, method)(msg)
+            return msg
 
         {
             'info': self.logger.info,
