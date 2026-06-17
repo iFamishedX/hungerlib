@@ -1,8 +1,4 @@
 run: true
-version: '4.20'
+version: '4.20.1'
 description: |
-  - Added custom level support
-  - Added level normalization
   - Fixed logic error
-  - Fixed type mismatch
-  - Used single quotes where possible

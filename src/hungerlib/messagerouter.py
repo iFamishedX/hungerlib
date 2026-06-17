@@ -59,7 +59,6 @@ class MessageRouter:
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
 
-    # like this, lowercase, no fancy bs
     def _format(self, text, maps, **ctx):
         return self.res(text, override_maps=maps, **ctx)
 
@@ -71,19 +70,21 @@ class MessageRouter:
 
     # routing primitives
     def origin(self, text, level='info', extra_maps=None, override_maps=None, **ctx):
+        level_norm = level.lower() if isinstance(level, str) else None
+
         maps = self._merge_maps(override_maps or self.origin_maps, extra_maps)
         mapped = self._format(text, maps, **ctx)
-        level = level.lower() if isinstance(level, str) else level
 
-        if level == 'info':
+        # Prefix resolution
+        if level_norm == 'info':
             prefix = self.res(self.info_prefix, override_maps=self.prefix_maps)
-        elif level == 'warn':
+        elif level_norm == 'warn':
             prefix = self.res(self.warn_prefix, override_maps=self.prefix_maps)
-        elif level == 'error':
+        elif level_norm == 'error':
             prefix = self.res(self.error_prefix, override_maps=self.prefix_maps)
         elif level is None:
             prefix = ''
-        elif level == 'custom':
+        elif level_norm == 'custom':
             prefix = ctx.get('prefix', '')
         else:
             prefix = self.res(level, override_maps=self.prefix_maps)
