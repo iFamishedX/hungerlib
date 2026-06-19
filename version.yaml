@@ -1,4 +1,4 @@
 run: true
-version: '4.23.dev2'
+version: '4.23.dev3'
 description: |
-  - Updated MinecraftServer constructor to accept bridge_url instead of bridge_port
+  - Fixed max_players regex.
