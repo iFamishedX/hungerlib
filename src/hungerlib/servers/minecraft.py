@@ -75,7 +75,7 @@ class MinecraftServer(GenericServer):
         if not output:
             return 0
         # Regex for: "There are X of a max of Y players online"
-        match = re.search(r'There are \d+ of a max of (\d+) players online', output)
+        match = re.search(r'There are \d+ of a max of (\d+) players online:', output)
         if match:
             return int(match.group(1))
         return 0

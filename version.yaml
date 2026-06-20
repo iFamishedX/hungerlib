@@ -1,4 +1,4 @@
 run: true
-version: '4.23.dev3'
+version: '4.23.dev4'
 description: |
-  - Fixed max_players regex.
+  - Fixed max_players regex
