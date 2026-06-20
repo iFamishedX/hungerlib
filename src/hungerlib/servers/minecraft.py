@@ -69,7 +69,7 @@ class MinecraftServer(GenericServer):
         There are 0 of a max of 20 players online:
         '''
         try:
-            output = self.bridge.runCommand('list', show_console=False, silent=True, normalize=True)
+            output = self.bridge.runCommand('list', show_console=True, silent=False, normalize=False)
             print("RAW OUTPUT:", repr(output))
         except Exception:
             return 0
