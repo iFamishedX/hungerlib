@@ -70,12 +70,12 @@ class MinecraftServer(GenericServer):
         '''
         try:
             output = self.bridge.runCommand('list', show_console=False, silent=True, normalize=True)
+            print("RAW OUTPUT:", repr(output))
         except Exception:
             return 0
         if not output:
             return 0
         # Regex for: "There are X of a max of Y players online"
-        print("RAW OUTPUT:", repr(output))
         match = re.search(r'There are \d+ of a max of (\d+) players online:', output)
         if match:
             return int(match.group(1))
