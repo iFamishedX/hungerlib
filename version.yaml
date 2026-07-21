@@ -1,5 +1,6 @@
 run: true
-version: '4.23-alpha.2'
+version: '4.23-alpha.3'
 description: |
   - Refactored MessageRouter
   - Changed version system
+  - Added DiscordBotWebhook class

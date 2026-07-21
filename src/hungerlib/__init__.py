@@ -13,6 +13,7 @@ from .messagerouter import MessageRouter
 from .panel import Panel
 from .servers import GenericServer, MinecraftServer
 from .bridgeclient import BridgeClient
+from .discord_bot_webhook import DiscordBotWebhook
 from .validator import (
     Validator,
     ValidationError,
@@ -65,6 +66,7 @@ __all__ = [
     'GenericServer',
     'MinecraftServer',
     'BridgeClient',
+    'DiscordBotWebhook',
     'Validator',
 
     # sub-modules
