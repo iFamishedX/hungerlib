@@ -5,9 +5,9 @@ class DiscordBotWebhook:
         self.url = url
         self.token = token
     
-    def send(self, content: str, **ctx):
+    def send(self, event: str, **ctx):
         requests.post(
             self.url,
-            json={"content": content, **ctx},
+            json={"event": event, **ctx},
             timeout=5
         ).raise_for_status()
