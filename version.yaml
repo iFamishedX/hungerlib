@@ -1,5 +1,7 @@
 run: true
-version: '4.24-dev.1'
+version: '4.24-dev.2'
 description: |
   - Dev 1:
     - Added email features
+  - Dev 2:
+    - Renamed EmailUser to EmailClient

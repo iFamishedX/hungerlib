@@ -1,7 +1,7 @@
 from __future__ import annotations
 from .message import Email
 
-class EmailUser:
+class EmailClient:
     '''
     Represents a sender identity.
     The frontend API for sending emails.

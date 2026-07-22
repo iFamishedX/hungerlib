@@ -10,7 +10,7 @@ class EmailManager:
     '''
     Backend email system.
     Holds API token and account ID.
-    Sends emails created by EmailUser.
+    Sends emails created by EmailClient.
     '''
     def __init__(self, api_token: str, account_id: str):
         self.client = Cloudflare(api_token=api_token)
