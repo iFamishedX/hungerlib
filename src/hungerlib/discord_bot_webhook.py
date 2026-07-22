@@ -9,5 +9,6 @@ class DiscordBotWebhook:
         requests.post(
             self.url,
             json={"event": event, **ctx},
+            headers={"X-Webhook-Token": self.token},
             timeout=5
         ).raise_for_status()
