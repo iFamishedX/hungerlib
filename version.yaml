@@ -1,5 +1,5 @@
 run: true
-version: '4.23-alpha.4'
+version: '4.23-beta.1'
 description: |
   - Alpha 1-2:
     - Refactored MessageRouter
@@ -9,3 +9,6 @@ description: |
   - Alpha 4:
     - Changed version system
     - Changed naming convention from "content" to "event"
+  - Beta 1:
+    - Now in Beta stage
+    - Added imports for other exceptions (parody)

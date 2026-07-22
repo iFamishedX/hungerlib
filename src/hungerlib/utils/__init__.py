@@ -1,3 +1,10 @@
+from .utils import Snapshot, clearTerminal, validateAll
+from .exceptions import (
+    HungerLibError,
+    InvalidLevelError,
+    InvalidModeError,
+    HungerBridgeError
+)
 from .time import (
     snapSchedule,
     runCountdownEvents,
@@ -6,7 +13,6 @@ from .time import (
     secsUntil,
     minsUntil
 )
-from .utils import Snapshot, clearTerminal, validateAll
 
 __all__ = [
     'snapSchedule',
@@ -18,4 +24,10 @@ __all__ = [
     'Snapshot',
     'clearTerminal',
     'validateAll',
+
+    # exceptions
+    'HungerLibError',
+    'InvalidLevelError',
+    'InvalidModeError',
+    'HungerBridgeError',
 ]

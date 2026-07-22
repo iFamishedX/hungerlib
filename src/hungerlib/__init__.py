@@ -33,6 +33,12 @@ from .utils import (
     Snapshot,
     clearTerminal,
     validateAll,
+
+    # exceptions
+    HungerLibError,
+    InvalidLevelError,
+    InvalidModeError,
+    HungerBridgeError
 )
 
 # namespaces
@@ -86,6 +92,11 @@ __all__ = [
     'TypeMismatchError',
     'FallbackError',
     'RecommendedError',
+
+    'HungerLibError',
+    'InvalidLevelError',
+    'InvalidModeError',
+    'HungerBridgeError',
 
     # namespaces
     'utils',
