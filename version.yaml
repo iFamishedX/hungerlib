@@ -1,5 +1,5 @@
 run: true
-version: '4.23-beta.2'
+version: '4.23'
 description: |
   - Alpha 1-2:
     - Refactored MessageRouter
@@ -14,3 +14,5 @@ description: |
     - Added imports for other exceptions (parody)
   - Beta 2:
     - Fixed DiscordBotWebhook not having proper authorization headers
+  - Stable:
+    - Now in Stable channel
