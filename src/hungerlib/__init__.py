@@ -14,6 +14,7 @@ from .panel import Panel
 from .servers import GenericServer, MinecraftServer
 from .bridgeclient import BridgeClient
 from .discord_bot_webhook import DiscordBotWebhook
+from .email import Email, EmailManager, EmailUser
 from .validator import (
     Validator,
     ValidationError,
@@ -74,6 +75,9 @@ __all__ = [
     'BridgeClient',
     'DiscordBotWebhook',
     'Validator',
+    'Email',
+    'EmailManager',
+    'EmailUser',
 
     # sub-modules
     'snapSchedule',

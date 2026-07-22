@@ -1,18 +1,5 @@
 run: true
-version: '4.23'
+version: '4.24-dev.1'
 description: |
-  - Alpha 1-2:
-    - Refactored MessageRouter
-    - Changed version system
-  - Alpha 3:
-    - Added DiscordBotWebhook class
-  - Alpha 4:
-    - Changed version system
-    - Changed naming convention from "content" to "event"
-  - Beta 1:
-    - Now in Beta stage
-    - Added imports for other exceptions (parody)
-  - Beta 2:
-    - Fixed DiscordBotWebhook not having proper authorization headers
-  - Stable:
-    - Now in Stable channel
+  - Dev 1:
+    - Added email features
