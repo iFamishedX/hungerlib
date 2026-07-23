@@ -1,16 +1,87 @@
-<div style="background:#fff; border-radius:10px; padding:20px; max-width:600px; margin:0 auto;
-            box-shadow:0 6px 18px rgba(0,0,0,0.06); font-family: Arial, sans-serif;">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #eef1f5;
+      font-family: Arial, sans-serif;
+    }
 
-  <h1 style="color:#2b6df6; margin-bottom:20px;">
-    Server {{ server_name }} Restart Scheduled
-  </h1>
+    .wrapper {
+      width: 100%;
+      text-align: center;
+      padding: 40px 0;
+    }
 
-  <p style="color:#333; font-size:16px; line-height:1.6;">
-    The server <strong>{{ server_name }}</strong> will restart at <strong>{{ time }}</strong>.
-  </p>
+    .box {
+      background: #ffffff;
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 14px;
+      border: 1px solid #d9dce3;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
 
-  <p style="font-size:13px; color:#666; margin-top:12px;">
-    Triggered by: {{ trigger }}
-  </p>
+    h1 {
+      color: #4a6cf7;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
 
-</div>
+    p {
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #4a6cf7;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="box">
+      <h1>{{ heading }}</h1>
+
+      <p>
+        {{ message }}
+      </p>
+
+      <p>
+        • Server status updates<br>
+        • Crash reports<br>
+        • Notifications<br>
+        • Alerts<br>
+      </p>
+
+      <a class="button" href="{{ button_url }}">{{ button_text }}</a>
+
+      <p class="footer">
+        {{ footer }}
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -24,3 +24,5 @@ description: |
     - Debugging
   - Dev 13:
     - Changed TO: field to list[str] instead of str
+  - Dev 14:
+    - Started work on html styling
