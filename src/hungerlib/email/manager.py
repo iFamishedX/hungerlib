@@ -3,16 +3,26 @@ import pathlib
 from cloudflare import Cloudflare
 from .message import Email
 
-TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent / 'email_templates'
+# Templates live in: src/hungerlib/email/email_templates
+TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent / "email_templates"
 
 class EmailManager:
+    """
+    Backend email system.
+    Holds API token and account ID.
+    Sends emails created by EmailClient.
+    """
+
     def __init__(self, api_token: str, account_id: str):
         self.client = Cloudflare(api_token=api_token)
         self.account_id = account_id
 
+        # Jinja2 environment configured for HTML emails
         self.jinja = Environment(
             loader=FileSystemLoader(str(TEMPLATE_DIR)),
-            autoescape=True
+            autoescape=False,        # Cloudflare rejects escaped HTML
+            trim_blocks=False,       # preserve whitespace
+            lstrip_blocks=False      # preserve indentation
         )
 
     def render_template(self, template: str, ctx: dict) -> str:
@@ -20,6 +30,7 @@ class EmailManager:
         return tmpl.render(**ctx)
 
     def send_email(self, user, email: Email) -> bool:
+        # Render template if needed
         if email.template and not email.html:
             email.html = self.render_template(email.template, email.template_ctx)
 
@@ -43,4 +54,4 @@ class EmailManager:
             payload["bcc"] = ",".join(email.bcc)
 
         resp = self.client.email_sending.send(**payload)
-        return bool(getattr(resp, 'delivered', None))
+        return bool(getattr(resp, "delivered", None))
