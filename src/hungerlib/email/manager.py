@@ -1,7 +1,6 @@
 from __future__ import annotations
 import pathlib
 from cloudflare import Cloudflare
-from mapres import res
 from .message import Email
 
 TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent / 'email_templates'
@@ -28,7 +27,7 @@ class EmailManager:
     # -------------------------
     def render_template(self, template: str, ctx: dict) -> str:
         raw = self.load_template(template)
-        return res(raw, **ctx)
+        return raw.format(**ctx)
 
     # -------------------------
     # Actual sending
