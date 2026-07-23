@@ -41,15 +41,25 @@ class EmailManager:
         if email.template and not email.html:
             email.html = self.render_template(email.template, email.template_ctx)
 
-        resp = self.client.email_sending.send(
-            account_id=self.account_id,
-            from_=f'{user.name} <{user.address}>',
-            to=to_str,
-            cc=cc_str,
-            bcc=bcc_str,
-            subject=email.subject,
-            text=email.text,
-            html=email.html
-        )
+        payload = {
+            "account_id": self.account_id,
+            "from_": f"{user.name} <{user.address}>",
+            "to": ",".join(email.to),
+            "subject": email.subject
+        }
+
+        if email.text:
+            payload["text"] = email.text
+
+        if email.html:
+            payload["html"] = email.html
+
+        if email.cc:
+            payload["cc"] = ",".join(email.cc)
+
+        if email.bcc:
+            payload["bcc"] = ",".join(email.bcc)
+
+        resp = self.client.email_sending.send(**payload)
 
         return bool(getattr(resp, 'delivered', None))

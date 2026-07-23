@@ -5,3 +5,5 @@ description: |
     - Added email features
   - Dev 2:
     - Renamed EmailUser to EmailClient
+  - Dev 3:
+    - Fixed syntax
