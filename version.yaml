@@ -1,5 +1,5 @@
 run: true
-version: '4.24-dev.8'
+version: '4.24-dev.9'
 description: |
   - Dev 1:
     - Added email features
@@ -15,3 +15,5 @@ description: |
     - Uses .format instead of res()
   - Dev 8:
     - Uses Template instead of .format
+  - Dev 9:
+    - Updated html
