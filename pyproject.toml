@@ -30,6 +30,7 @@ dependencies = [
     "PyYaml",
     "mapres",
     "jinja2",
+    "cloudflare",
 ]
 
 classifiers = [
