@@ -4,7 +4,7 @@ from cloudflare import Cloudflare
 from mapres import res
 from .message import Email
 
-TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent.parent / 'email_templates'
+TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent / 'email_templates'
 
 class EmailManager:
     '''
