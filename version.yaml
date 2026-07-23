@@ -1,5 +1,5 @@
 run: true
-version: '4.24-dev.5'
+version: '4.24-dev.6'
 description: |
   - Dev 1:
     - Added email features
@@ -9,5 +9,5 @@ description: |
     - Fixed syntax
   - Dev 4:
     - Fixed pyproject.toml
-  - Dev 5:
+  - Dev 5-6:
     - Debugging
