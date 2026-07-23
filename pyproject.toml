@@ -29,6 +29,7 @@ dependencies = [
     "mcrcon",
     "PyYaml",
     "mapres",
+    "jinja2",
 ]
 
 classifiers = [

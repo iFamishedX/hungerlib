@@ -1,5 +1,5 @@
 run: true
-version: '4.24-dev.9'
+version: '4.24-dev.10'
 description: |
   - Dev 1:
     - Added email features
@@ -16,4 +16,7 @@ description: |
   - Dev 8:
     - Uses Template instead of .format
   - Dev 9:
+    - Updated html
+  - Dev 10:
+    - Uses Jinja2 instead of Template
     - Updated html

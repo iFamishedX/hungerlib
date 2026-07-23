@@ -1,43 +1,25 @@
-from __future__ import annotations
+from jinja2 import Environment, FileSystemLoader
 import pathlib
-from string import Template
 from cloudflare import Cloudflare
 from .message import Email
 
 TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent / 'email_templates'
 
 class EmailManager:
-    '''
-    Backend email system.
-    Holds API token and account ID.
-    Sends emails created by EmailClient.
-    '''
     def __init__(self, api_token: str, account_id: str):
         self.client = Cloudflare(api_token=api_token)
         self.account_id = account_id
 
-    # -------------------------
-    # Template loader
-    # -------------------------
-    def load_template(self, name: str) -> str:
-        path = TEMPLATE_DIR / f'{name}.html'
-        return path.read_text(encoding='utf8')
+        self.jinja = Environment(
+            loader=FileSystemLoader(str(TEMPLATE_DIR)),
+            autoescape=True
+        )
 
-    # -------------------------
-    # Template renderer
-    # -------------------------
     def render_template(self, template: str, ctx: dict) -> str:
-        raw = self.load_template(template)
-        return Template(raw).safe_substitute(ctx)
+        tmpl = self.jinja.get_template(f"{template}.html")
+        return tmpl.render(**ctx)
 
-    # -------------------------
-    # Actual sending
-    # -------------------------
     def send_email(self, user, email: Email) -> bool:
-        to_str = ','.join(email.to)
-        cc_str = ','.join(email.cc) if email.cc else None
-        bcc_str = ','.join(email.bcc) if email.bcc else None
-
         if email.template and not email.html:
             email.html = self.render_template(email.template, email.template_ctx)
 
@@ -61,5 +43,4 @@ class EmailManager:
             payload["bcc"] = ",".join(email.bcc)
 
         resp = self.client.email_sending.send(**payload)
-
         return bool(getattr(resp, 'delivered', None))
