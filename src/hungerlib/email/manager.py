@@ -37,7 +37,7 @@ class EmailManager:
         payload = {
             "account_id": self.account_id,
             "from_": f"{user.name} <{user.address}>",
-            "to": ",".join(email.to),
+            "to": email.to,
             "subject": email.subject
         }
 
@@ -51,10 +51,10 @@ class EmailManager:
             payload["html"] = email.html
 
         if email.cc:
-            payload["cc"] = ",".join(email.cc)
+            payload["cc"] = email.cc
 
         if email.bcc:
-            payload["bcc"] = ",".join(email.bcc)
+            payload["bcc"] = email.bcc
 
         resp = self.client.email_sending.send(**payload)
         return bool(getattr(resp, "delivered", None))

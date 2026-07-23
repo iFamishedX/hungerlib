@@ -1,5 +1,5 @@
 run: true
-version: '4.24-dev.12'
+version: '4.24-dev.13'
 description: |
   - Dev 1:
     - Added email features
@@ -22,3 +22,5 @@ description: |
     - Updated html
   - Dev 11-12:
     - Debugging
+  - Dev 13:
+    - Changed TO: field to list[str] instead of str
