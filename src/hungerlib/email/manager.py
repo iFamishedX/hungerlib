@@ -1,5 +1,6 @@
 from __future__ import annotations
 import pathlib
+from string import Template
 from cloudflare import Cloudflare
 from .message import Email
 
@@ -27,7 +28,7 @@ class EmailManager:
     # -------------------------
     def render_template(self, template: str, ctx: dict) -> str:
         raw = self.load_template(template)
-        return raw.format(**ctx)
+        return Template(raw).safe_substitute(ctx)
 
     # -------------------------
     # Actual sending
