@@ -1,5 +1,5 @@
 run: true
-version: '4.24-dev.14'
+version: '4.24-alpha.1'
 description: |
   - Dev 1:
     - Added email features
@@ -26,3 +26,6 @@ description: |
     - Changed TO: field to list[str] instead of str
   - Dev 14:
     - Started work on html styling
+  - Alpha 1:
+    - Now in Alpha channel
+    - Removed debugging code from EmailManager

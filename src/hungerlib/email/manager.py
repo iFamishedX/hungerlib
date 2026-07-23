@@ -3,26 +3,24 @@ import pathlib
 from cloudflare import Cloudflare
 from .message import Email
 
-# Templates live in: src/hungerlib/email/email_templates
 TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent / "email_templates"
 
 class EmailManager:
-    """
+    '''
     Backend email system.
     Holds API token and account ID.
     Sends emails created by EmailClient.
-    """
-
+    '''
     def __init__(self, api_token: str, account_id: str):
         self.client = Cloudflare(api_token=api_token)
         self.account_id = account_id
 
-        # Jinja2 environment configured for HTML emails
+        # Jinja2 configured to NOT alter whitespace or escape HTML
         self.jinja = Environment(
             loader=FileSystemLoader(str(TEMPLATE_DIR)),
-            autoescape=False,        # Cloudflare rejects escaped HTML
-            trim_blocks=False,       # preserve whitespace
-            lstrip_blocks=False      # preserve indentation
+            autoescape=False,
+            trim_blocks=False,
+            lstrip_blocks=False
         )
 
     def render_template(self, template: str, ctx: dict) -> str:
@@ -45,9 +43,6 @@ class EmailManager:
             payload["text"] = email.text
 
         if email.html:
-            print("=== FINAL HTML SENT TO CLOUDFLARE ===")
-            print(email.html)
-            print("=====================================")
             payload["html"] = email.html
 
         if email.cc:
