@@ -52,3 +52,9 @@ Issues = "https://github.com/iFamishedX/HungerLib/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"hungerlib" = ["email_templates/*.html"]
