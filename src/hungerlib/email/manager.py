@@ -45,6 +45,9 @@ class EmailManager:
             payload["text"] = email.text
 
         if email.html:
+            print("=== FINAL HTML SENT TO CLOUDFLARE ===")
+            print(email.html)
+            print("=====================================")
             payload["html"] = email.html
 
         if email.cc:
